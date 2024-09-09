@@ -1,0 +1,18 @@
+services:
+  rabbit:
+    image: rabbitmq:4.0-rc-management
+    container_name: rabbit
+    ports:
+      - "5672:5672" #Puerto de PC
+      - "15672:15672" #Puerto Interface gráfica
+    environment:
+      - RABBITMQ_DEFAULT_USER=rgvwebs
+      - RABBITMQ_DEFAULT_PASS=admin
+    volumes:
+      - ../rabbitmq/data/:/var/lib/rabbitmq/ #Persistencia de volumenes dirección donde se guardarán los datos local:image
+      - ../rabbitmq/log/:/var/log/rabbitmq/ # Persistencia de los logs local:image
+    networks:
+      - rabbitmq_network #Puede ser implícito pero de forma prefesional debe ser explícito
+networks:
+  rabbitmq_network:
+    driver: bridge
